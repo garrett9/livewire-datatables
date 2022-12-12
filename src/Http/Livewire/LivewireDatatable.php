@@ -67,6 +67,19 @@ class LivewireDatatable extends Component
     public $persistFilters = true;
     public $visibleSelected = [];
     public $row = 1;
+    public bool $inCard = false;
+    public bool $showResultsDropdown = true;
+    public ?string $heading = null;
+    public ?string $description = null;
+    public bool $filtersOpen = false;
+    public bool $filterable = true;
+    public array $setFilters = [];
+    public array $queryFilters = [];
+    protected ?string $exportFilename = null;
+
+    public $queryString = [
+        'queryFilters' => ['except' => []],
+    ];
 
     public $tablePrefix = '';
 
