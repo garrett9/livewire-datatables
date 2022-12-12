@@ -10,34 +10,63 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 class Column
 {
     public $type = 'string';
+
     public $index = 0;
+
     public $label;
+
     public $tooltip;
+
     public $name;
+
     public $select;
+
     public $joins;
+
     public $base;
+
     public $raw;
+
     public $searchable;
+
     public $sortable;
+
     public $filterOn;
+
     public $filterable;
+
     public $hideable;
+
     public $sort;
+
     public $defaultSort;
+
     public $callback;
+
     public $hidden;
+
     public $scope;
+
     public $scopeFilter;
+
     public $params = [];
+
     public $additionalSelects = [];
+
     public $filterView;
+
     public $headerAlign = 'left';
+
     public $contentAlign = 'left';
+
     public $preventExport;
+
     public $width;
+
     public $minWidth;
+
     public $maxWidth;
+
     public $exportCallback;
 
     /**
@@ -122,7 +151,7 @@ class Column
     ) {
         $column = new static;
 
-        $column->name = 'callback_' . ($callbackName ?? crc32(json_encode(func_get_args())));
+        $column->name = 'callback_'.($callbackName ?? crc32(json_encode(func_get_args())));
         $column->callback = $callback;
         $column->additionalSelects = is_array($columns) ? $columns : array_map('trim', explode(',', $columns));
         $column->params = $params;
@@ -132,7 +161,7 @@ class Column
 
     public static function checkbox($attribute = 'id')
     {
-        return static::name($attribute . ' as checkbox_attribute')
+        return static::name($attribute.' as checkbox_attribute')
             ->setType('checkbox')
             ->excludeFromExport();
     }
@@ -200,7 +229,7 @@ class Column
     public function tooltip($text, $label = null)
     {
         $this->tooltip = [
-            'text' => $text,
+            'text'  => $text,
             'label' => $label,
         ];
 

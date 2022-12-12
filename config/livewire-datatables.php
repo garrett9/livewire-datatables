@@ -25,7 +25,7 @@ return [
     */
 
     'default_time_start' => '0000-00-00',
-    'default_time_end' => '9999-12-31',
+    'default_time_end'   => '9999-12-31',
 
     // Defaults that work with smalldatetime in SQL Server
     //  'default_time_start' => '1900-01-01',
@@ -95,8 +95,8 @@ return [
 
     'default_classes' => [
         'row' => [
-            'even' => 'divide-x divide-gray-100 text-sm text-gray-900 bg-gray-100',
-            'odd' => 'divide-x divide-gray-100 text-sm text-gray-900 bg-gray-50',
+            'even'     => 'divide-x divide-gray-100 text-sm text-gray-900 bg-gray-100',
+            'odd'      => 'divide-x divide-gray-100 text-sm text-gray-900 bg-gray-50',
             'selected' => 'divide-x divide-gray-100 text-sm text-gray-900 bg-yellow-100',
         ],
         'cell' => 'whitespace-no-wrap text-sm text-gray-900 px-6 py-2',

@@ -35,7 +35,7 @@ class LivewireDatatableTemplateTest extends TestCase
         factory(DummyModel::class)->create();
 
         $subject = Livewire::test(LivewireDatatable::class, [
-            'model' => DummyModel::class,
+            'model'      => DummyModel::class,
             'hideHeader' => true,
         ])->assertDontSeeHtml('<button wire:click="sort');
     }
@@ -46,7 +46,7 @@ class LivewireDatatableTemplateTest extends TestCase
         factory(DummyModel::class)->create();
 
         $subject = Livewire::test(LivewireDatatable::class, [
-            'model' => DummyModel::class,
+            'model'          => DummyModel::class,
             'hidePagination' => true,
         ])->assertDontSeeHtml('<select name="perPage"');
     }
@@ -57,7 +57,7 @@ class LivewireDatatableTemplateTest extends TestCase
         factory(DummyModel::class, 20)->create();
 
         Livewire::test(LivewireDatatable::class, [
-            'model' => DummyModel::class,
+            'model'   => DummyModel::class,
             'perPage' => 20,
         ])->assertSee('Results 1 - 20');
     }
@@ -68,7 +68,7 @@ class LivewireDatatableTemplateTest extends TestCase
         factory(DummyModel::class)->create();
 
         $subject = Livewire::test(LivewireDatatable::class, [
-            'model' => DummyModel::class,
+            'model'   => DummyModel::class,
             'include' => [
                 'id',
                 'subject',
@@ -90,7 +90,7 @@ class LivewireDatatableTemplateTest extends TestCase
         factory(DummyModel::class)->create();
 
         $subject = Livewire::test(LivewireDatatable::class, [
-            'model' => DummyModel::class,
+            'model'   => DummyModel::class,
             'exclude' => ['subject'],
         ]);
 
@@ -113,7 +113,7 @@ class LivewireDatatableTemplateTest extends TestCase
 
         $subject = Livewire::test(LivewireDatatable::class, [
             'model' => DummyModel::class,
-            'hide' => ['subject'],
+            'hide'  => ['subject'],
         ])->assertDontSee('HIDE-THIS');
 
         $this->assertIsArray($subject->columns);
@@ -158,7 +158,7 @@ class LivewireDatatableTemplateTest extends TestCase
 
         $subject = Livewire::test(LivewireDatatable::class, [
             'model' => DummyModel::class,
-            'sort' => 'subject|asc',
+            'sort'  => 'subject|asc',
         ]);
 
         $this->assertEquals('Mediconesystems\LivewireDatatables\Tests\Models\DummyModel', $subject->model);

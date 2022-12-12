@@ -12,6 +12,7 @@ use Mediconesystems\LivewireDatatables\Tests\Models\DummyModel;
 class DummyTable extends LivewireDatatable
 {
     public $perPage = 10;
+
     public $model = DummyModel::class;
 
     public function columns()
@@ -43,9 +44,9 @@ class DummyTable extends LivewireDatatable
                 ->label('Relation'),
 
             Column::name('subject AS string')
-                    ->label('BooleanFilterableSubject')
-                    ->booleanFilterable()
-                    ->hide(),
+                ->label('BooleanFilterableSubject')
+                ->booleanFilterable()
+                ->hide(),
         ];
     }
 }

@@ -5,12 +5,19 @@ namespace Mediconesystems\LivewireDatatables;
 class Action
 {
     public $value;
+
     public $label;
+
     public $group;
+
     public $fileName;
+
     public $isExport = false;
+
     public $styles = [];
+
     public $widths = [];
+
     public $callable;
 
     public function __call($method, $args)

@@ -16,8 +16,11 @@ class DatatableExport implements FromCollection, WithHeadings, ShouldAutoSize, W
     use Exportable;
 
     public $collection;
+
     public $fileName = 'DatatableExport.xlsx';
+
     public $styles = [];
+
     public $columnWidths = [];
 
     public function __construct($collection)

@@ -10,14 +10,19 @@ use Livewire\Component;
 class ComplexQuery extends Component
 {
     public $columns;
+
     public $persistKey;
+
     public $savedQueries;
+
     public $query = [];
+
     public $rule = [];
+
     public $rules = [
         [
-            'type' => 'group',
-            'logic' => 'and',
+            'type'    => 'group',
+            'logic'   => 'and',
             'content' => [],
         ],
     ];
@@ -56,7 +61,7 @@ class ComplexQuery extends Component
         return collect($rules ?? $this->rules)->map(function ($rule) {
             return $rule['type'] === 'rule'
                     ? implode(' ', [$this->columns[$rule['content']['column']]['label'] ?? '', $rule['content']['operand'] ?? '', $rule['content']['value'] ?? ''])
-                    : '(' . $this->getRulesStringProperty($rule['content'], $rule['logic']) . ')';
+                    : '('.$this->getRulesStringProperty($rule['content'], $rule['logic']).')';
         })->join(strtoupper(" $logic "));
     }
 
@@ -120,11 +125,11 @@ class ComplexQuery extends Component
         $temp = Arr::get($this->rules, $index);
 
         $temp[] = [
-            'type' => 'rule',
+            'type'    => 'rule',
             'content' => [
-                'column' => null,
+                'column'  => null,
                 'operand' => null,
-                'value' => null,
+                'value'   => null,
             ],
         ];
 
@@ -164,8 +169,8 @@ class ComplexQuery extends Component
         $temp = Arr::get($this->rules, $index);
 
         $temp[] = [
-            'type' => 'group',
-            'logic' => 'and',
+            'type'    => 'group',
+            'logic'   => 'and',
             'content' => [],
         ];
 
@@ -196,20 +201,20 @@ class ComplexQuery extends Component
 
     public function getRuleColumn($key)
     {
-        return $this->columns[Arr::get($this->rules, $key . '.column')] ?? null;
+        return $this->columns[Arr::get($this->rules, $key.'.column')] ?? null;
     }
 
     public function getOperands($key)
     {
         $operands = [
-            'string' => ['equals', 'does not equal', 'contains', 'does not contain', 'is empty', 'is not empty', 'begins with', 'ends with'],
-            'json' => ['equals', 'does not equal', 'contains', 'does not contain', 'is empty', 'is not empty', 'begins with', 'ends with'],
+            'string'   => ['equals', 'does not equal', 'contains', 'does not contain', 'is empty', 'is not empty', 'begins with', 'ends with'],
+            'json'     => ['equals', 'does not equal', 'contains', 'does not contain', 'is empty', 'is not empty', 'begins with', 'ends with'],
             'editable' => ['equals', 'does not equal', 'contains', 'does not contain', 'is empty', 'is not empty', 'begins with', 'ends with'],
-            'number' => ['=', '<>', '<', '<=', '>', '>='],
-            'date' => ['=', '<>', '<', '<=', '>', '>='],
-            'time' => ['=', '<>', '<', '<=', '>', '>='],
-            'boolean' => [],
-            'scope' => ['includes'],
+            'number'   => ['=', '<>', '<', '<=', '>', '>='],
+            'date'     => ['=', '<>', '<', '<=', '>', '>='],
+            'time'     => ['=', '<>', '<', '<=', '>', '>='],
+            'boolean'  => [],
+            'scope'    => ['includes'],
         ];
 
         if (! $this->getRuleColumn($key)) {

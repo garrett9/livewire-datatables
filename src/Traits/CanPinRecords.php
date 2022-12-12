@@ -77,6 +77,6 @@ trait CanPinRecords
 
     private function sessionKey(): string
     {
-        return $this->sessionStorageKey() . $this->sessionKeyPostfix;
+        return $this->sessionStorageKey().$this->sessionKeyPostfix;
     }
 }
