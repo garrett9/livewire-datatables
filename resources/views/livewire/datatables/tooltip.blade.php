@@ -1,4 +1,6 @@
-<span class="relative group cursor-pointer">
-    <span class="flex items-center">{{ Str::limit($slot, $length) }}</span>
-    <span class="hidden group-hover:block absolute z-10 -ml-28 w-96 mt-2 p-2 text-xs whitespace-pre-wrap rounded-lg bg-gray-100 border border-gray-300 shadow-xl text-gray-700 text-left">{{ $slot }}</span>
+<span class="group">
+	<span class="flex items-center">{{ Str::limit($slot, $length) }}</span>
+	<span
+		class="absolute z-10 mt-2 hidden w-96 whitespace-pre-wrap rounded-lg border border-gray-300 bg-gray-100 p-2 text-left text-xs text-gray-700 shadow-xl group-hover:block"
+	>{{ $slot }}</span>
 </span>

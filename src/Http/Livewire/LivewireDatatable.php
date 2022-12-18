@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -180,6 +181,7 @@ class LivewireDatatable extends Component
     ];
 
     protected $viewColumns = [
+        'default',
         'index',
         'hidden',
         'label',
@@ -748,6 +750,62 @@ class LivewireDatatable extends Component
         if (isset($filters['search'])) {
             $this->search = $filters['search'];
         }
+
+        $columns = new Collection($this->columns());
+        foreach ($this->setFilters ?: $this->queryFilters as $label => $filters) {
+            $index = $columns->search(function ($column) use ($label) {
+                return $column->label === $label;
+            });
+            if ($index !== false) {
+                $this->activeSelectFilters[$index] = $filters;
+            }
+        }
+    }
+
+    public function toggleFilters()
+    {
+        if ($this->shouldOpenFilters) {
+            $this->activeSelectFilters = [];
+            $this->activeDateFilters = [];
+            $this->activeTimeFilters = [];
+            $this->activeTextFilters = [];
+            $this->activeBooleanFilters = [];
+            $this->activeNumberFilters = [];
+            $this->setFilters = [];
+            $this->queryFilters = [];
+            $this->filtersOpen = false;
+            session()->forget($this->sessionStorageKey().'_filter');
+        } else {
+            $this->filtersOpen = true;
+        }
+        $this->forgetComputed('activeFilters');
+        $this->forgetComputed('shouldOpenFilters');
+    }
+
+    public function getShouldOpenFiltersProperty(): bool
+    {
+        return ($this->activeFilters || $this->filtersOpen) && $this->filterable;
+    }
+
+    public function getHasFilterableColumnsProperty()
+    {
+        return $this->filterable && collect($this->columns())->some(function ($column) {
+            return $column->filterable ?? false;
+        });
+    }
+
+    public function getSelectOptionsToChooseFrom($index)
+    {
+        $column = $this->freshColumns[$index];
+        $filterable = $column['filterable'];
+        $activeFilters = $this->activeSelectFilters[$index] ?? [];
+        foreach ($activeFilters as $filter) {
+            if (isset($filterable[$filter])) {
+                unset($filterable[$filter]);
+            }
+        }
+
+        return $filterable;
     }
 
     public function defaultSort()
@@ -1669,9 +1727,12 @@ class LivewireDatatable extends Component
 
     public function getDisplayValue($index, $value)
     {
-        return is_array($this->freshColumns[$index]['filterable']) && is_numeric($value)
-            ? collect($this->freshColumns[$index]['filterable'])->firstWhere('id', '=', $value)['name'] ?? $value
-            : $value;
+        return collect($this->freshColumns[$index]['filterable'])[$value] ?? $value;
+    }
+
+    public function getCreateRouteProperty(): ?string
+    {
+        return null;
     }
 
     /*  This can be called to apply highlighting of the search term to some string.
@@ -1736,10 +1797,9 @@ class LivewireDatatable extends Component
 
     public function export(string $filename = 'DatatableExport.xlsx')
     {
-        $this->forgetComputed();
-
         $export = new DatatableExport($this->getExportResultsSet());
-        $export->setFilename($filename);
+        $this->forgetComputed();
+        $export->setFilename($this->exportFilename ?: $filename);
 
         return $export->download();
     }

@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+use NumberFormatter;
 
 class Column
 {
@@ -68,6 +69,15 @@ class Column
     public $maxWidth;
 
     public $exportCallback;
+
+    public $default = null;
+
+    public function withDefault($default): self
+    {
+        $this->default = $default;
+
+        return $this;
+    }
 
     /**
      * @var bool should the sum of all summarizable cells in this column be
@@ -156,7 +166,53 @@ class Column
         $column->additionalSelects = is_array($columns) ? $columns : array_map('trim', explode(',', $columns));
         $column->params = $params;
 
+        if (is_string($columns)) {
+            $column->aggregate = Str::contains($columns, ':') ? Str::after($columns, ':') : $column->aggregate();
+        }
+
         return $column;
+    }
+
+    public static function money(string $name, string $currency = 'USD')
+    {
+        return static::callback($name, function ($money) use ($currency) {
+            $formatter = new NumberFormatter('en', NumberFormatter::CURRENCY);
+
+            return $formatter->formatCurrency((float) $money, $currency);
+        })->alignRight()->label(Str::title($name));
+    }
+
+    public static function labelColumn(string $name, $status = 'success')
+    {
+        return static::callback($name, function ($value) use ($status) {
+            return view('livewire.datatables.columns.label', [
+                'slot'   => Str::title($value ?: 'N/A'),
+                'status' => is_callable($status) ? $status($value) : $status,
+            ]);
+        })->alignCenter()->label(Str::title($name))->exportCallback(function ($value) {
+            return Str::title($value);
+        });
+    }
+
+    public static function image(string $name, ?Closure $mutator = null)
+    {
+        return static::callback($name, function ($value) use ($mutator) {
+            return view('datatables::columns.image', [
+                'src'   => $mutator ? $mutator($value) : $value,
+                'class' => 'm-auto h-20 rounded object-cover',
+            ]);
+        })->unsortable()->excludeFromExport();
+    }
+
+    public static function actions(?string $editRoute = null, ?string $deleteModal = null, string $name = 'id')
+    {
+        return static::callback($name, function ($value) use ($editRoute, $deleteModal) {
+            return view('datatables::columns.actions', [
+                'value'       => $value,
+                'editRoute'   => $editRoute,
+                'deleteModal' => $deleteModal,
+            ]);
+        })->label('More')->alignCenter()->unsortable()->excludeFromExport();
     }
 
     public static function checkbox($attribute = 'id')
