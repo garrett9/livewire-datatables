@@ -2,6 +2,7 @@
 
 namespace Mediconesystems\LivewireDatatables\Tests;
 
+use Assetsheld\AssetsheldFrontEndUtils\AssetsheldFrontEndUtilsServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Livewire\LivewireServiceProvider;
@@ -24,6 +25,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            AssetsheldFrontEndUtilsServiceProvider::class,
             LivewireServiceProvider::class,
             LivewireDatatablesServiceProvider::class,
             ExcelServiceProvider::class,

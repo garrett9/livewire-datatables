@@ -453,10 +453,6 @@ class LivewireDatatable extends Component
             ->reject(function ($column) use ($export) {
                 return $column->scope || $column->type === 'label' || ($export && $column->preventExport);
             })->map(function ($column) {
-                if ($column->select) {
-                    return $column;
-                }
-
                 if (Str::startsWith($column->name, 'callback_')) {
                     $column->select = $this->resolveAdditionalSelects($column);
 
@@ -842,7 +838,6 @@ class LivewireDatatable extends Component
                 break;
 
             default:
-
                 switch ($dbtable) {
                     case 'mysql':
                         return new Expression('`'.$column['name'].'`');

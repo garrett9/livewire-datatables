@@ -29,7 +29,7 @@
 					/>
 				</div>
 				<div class="flex flex-shrink items-center space-x-3 pl-6 lg:hidden">
-					@include('livewire.datatables.button-group', [
+					@include('datatables::button-group', [
 						'buttonsSlot' => $buttonsSlot,
 						'exportable' => $exportable,
 						'createRoute' => $this->createRoute,
@@ -53,8 +53,7 @@
 				<div class="flex h-10 flex-shrink items-center space-x-1 py-3 leading-10 lg:py-0 xl:px-6">
 					<p class="whitespace-nowrap">
 						@if (!$this->results->isEmpty())
-							Viewing {{ $this->results->firstItem() }} - {{ $this->results->lastItem() }} of
-							{{ $this->results->total() }}
+							{{ "Viewing {$this->results->firstItem()} - {$this->results->lastItem()} of {$this->results->total()}" }}
 						@else
 							No results
 						@endif
@@ -88,7 +87,7 @@
 				</div>
 
 				<div class="hidden flex-shrink items-center space-x-3 pl-6 lg:flex lg:py-0">
-					@include('livewire.datatables.button-group', [
+					@include('datatables::button-group', [
 						'buttonsSlot' => $buttonsSlot,
 						'exportable' => $exportable,
 						'createRoute' => $this->createRoute,

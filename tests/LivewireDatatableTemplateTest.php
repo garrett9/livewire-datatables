@@ -11,6 +11,7 @@ class LivewireDatatableTemplateTest extends TestCase
     /** @test */
     public function it_can_mount_from_the_default_template_with_a_model()
     {
+        $model = new DummyModel();
         factory(DummyModel::class)->create();
 
         $subject = Livewire::test(LivewireDatatable::class, ['model' => DummyModel::class]);
@@ -30,17 +31,6 @@ class LivewireDatatableTemplateTest extends TestCase
     }
 
     /** @test */
-    public function the_header_can_be_hidden_with_a_property()
-    {
-        factory(DummyModel::class)->create();
-
-        $subject = Livewire::test(LivewireDatatable::class, [
-            'model'      => DummyModel::class,
-            'hideHeader' => true,
-        ])->assertDontSeeHtml('<button wire:click="sort');
-    }
-
-    /** @test */
     public function the_pagination_bar_can_be_hidden_with_a_property()
     {
         factory(DummyModel::class)->create();
@@ -54,12 +44,12 @@ class LivewireDatatableTemplateTest extends TestCase
     /** @test */
     public function it_can_set_per_page_with_a_property()
     {
-        factory(DummyModel::class, 20)->create();
+        factory(DummyModel::class, 30)->create();
 
         Livewire::test(LivewireDatatable::class, [
             'model'   => DummyModel::class,
             'perPage' => 20,
-        ])->assertSee('Results 1 - 20');
+        ])->assertSee('Viewing 1 - 20 of 30');
     }
 
     /** @test */

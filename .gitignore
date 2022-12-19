@@ -6,3 +6,7 @@ coverage
 .DS_Store
 .vscode/
 .idea/
+clover.xml
+/coverage
+/output
+.phpunit.result.cache

@@ -185,7 +185,7 @@ class Column
     public static function labelColumn(string $name, $status = 'success')
     {
         return static::callback($name, function ($value) use ($status) {
-            return view('livewire.datatables.columns.label', [
+            return view('datatables::columns.label', [
                 'slot'   => Str::title($value ?: 'N/A'),
                 'status' => is_callable($status) ? $status($value) : $status,
             ]);

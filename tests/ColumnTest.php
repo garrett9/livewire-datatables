@@ -95,12 +95,18 @@ class ColumnTest extends TestCase
             'width'             => null,
             'exportCallback'    => function () {
             },
-            'filterOn' => null,
-            'group'    => null,
-            'hideable' => null,
-            'index'    => 0,
-            'minWidth' => null,
-            'maxWidth' => null,
+            'filterOn'     => null,
+            'group'        => null,
+            'hideable'     => null,
+            'index'        => 0,
+            'minWidth'     => null,
+            'maxWidth'     => null,
+            'sortable'     => true,
+            'tooltip'      => null,
+            'contentAlign' => 'left',
+            'default'      => null,
+            'summary'      => false,
+            'wrappable'    => true,
         ], $subject);
     }
 
@@ -144,6 +150,11 @@ class ColumnTest extends TestCase
             'index'             => 0,
             'minWidth'          => null,
             'maxWidth'          => null,
+            'tooltip'           => null,
+            'contentAlign'      => 'left',
+            'default'           => null,
+            'summary'           => false,
+            'wrappable'         => true,
         ], $subject);
     }
 
@@ -167,7 +178,7 @@ class ColumnTest extends TestCase
             'sort'              => null,
             'defaultSort'       => null,
             'searchable'        => null,
-            'sortable'          => null,
+            'sortable'          => true,
             'params'            => [],
             'additionalSelects' => [],
             'scope'             => null,
@@ -186,6 +197,11 @@ class ColumnTest extends TestCase
             'index'             => 0,
             'minWidth'          => null,
             'maxWidth'          => null,
+            'tooltip'           => null,
+            'contentAlign'      => 'left',
+            'default'           => null,
+            'summary'           => false,
+            'wrappable'         => true,
         ], $subject);
     }
 

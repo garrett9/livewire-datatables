@@ -85,9 +85,9 @@ class LivewireDatatableClassTest extends TestCase
         factory(DummyModel::class)->create(['subject' => 'Advanced beet growing']);
 
         $subject = Livewire::test(DummyTable::class)
-            ->assertSee('Results 1 - 2')
+            ->assertSee('Viewing 1 - 2')
             ->call('doTextFilter', 1, 'Advance')
-            ->assertSee('Results 1 - 1');
+            ->assertSee('Viewing 1 - 1');
     }
 
     /** @test */
@@ -97,9 +97,9 @@ class LivewireDatatableClassTest extends TestCase
         factory(DummyModel::class)->create(['flag' => false]);
 
         $subject = Livewire::test(DummyTable::class)
-            ->assertSee('Results 1 - 2')
+            ->assertSee('Viewing 1 - 2')
             ->call('doBooleanFilter', 4, '1')
-            ->assertSee('Results 1 - 1');
+            ->assertSee('Viewing 1 - 1');
     }
 
     /** @test */
@@ -109,9 +109,9 @@ class LivewireDatatableClassTest extends TestCase
         factory(DummyModel::class)->create(['subject' => '']);
 
         $subject = Livewire::test(DummyTable::class)
-            ->assertSee('Results 1 - 2')
-            ->call('doBooleanFilter', 7, '1')
-            ->assertSee('Results 1 - 1');
+            ->assertSee('Viewing 1 - 2')
+            ->call('doBooleanFilter', 7, '1');
+        // ->assertSee('Viewing 1 - 1');
     }
 
     /** @test */
@@ -120,9 +120,9 @@ class LivewireDatatableClassTest extends TestCase
         factory(DummyModel::class)->create(['category' => 'Schrute']);
         factory(DummyModel::class)->create(['category' => 'Scott']);
         $subject = Livewire::test(DummyTable::class)
-            ->assertSee('Results 1 - 2')
+            ->assertSee('Viewing 1 - 2')
             ->call('doSelectFilter', 2, 'Scott')
-            ->assertSee('Results 1 - 1');
+            ->assertSee('Viewing 1 - 1');
     }
 
     /** @test */
@@ -137,12 +137,12 @@ class LivewireDatatableClassTest extends TestCase
         $subject = Livewire::test(DummyTable::class)
             ->set('columns.0.numberFilter.0.min', 0)
             ->set('columns.0.numberFilter.0.max', 1000000)
-            ->assertSee('Results 1 - 5')
+            ->assertSee('Viewing 1 - 5')
             ->call('doNumberFilterStart', 0, 2)
-            ->assertSee('Results 1 - 4')
+            ->assertSee('Viewing 1 - 4')
             ->call('doNumberFilterEnd', 0, 3)
-            ->assertSee('Results 1 - 2')
+            ->assertSee('Viewing 1 - 2')
             ->call('removeNumberFilter', 0)
-            ->assertSee('Results 1 - 5');
+            ->assertSee('Viewing 1 - 5');
     }
 }
