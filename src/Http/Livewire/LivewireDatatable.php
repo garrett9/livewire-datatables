@@ -290,6 +290,11 @@ class LivewireDatatable extends Component
         $this->setPage(1);
     }
 
+    public function onMounted()
+    {
+        // Override
+    }
+
     public function mount(
         $model = false,
         $include = [],
@@ -309,6 +314,8 @@ class LivewireDatatable extends Component
         $afterTableSlot = false,
         $params = []
     ) {
+        $this->onMounted();
+
         foreach ([
             'model',
             'include',
