@@ -25,7 +25,7 @@ class LivewireDatatable extends Component
 {
     use WithPagination, WithCallbacks, WithPresetDateFilters, WithPresetTimeFilters;
 
-    const SEPARATOR = '|**lwdt**|';
+    const SEPARATOR = ' ';
 
     public $model;
 
