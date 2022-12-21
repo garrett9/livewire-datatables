@@ -460,6 +460,10 @@ class LivewireDatatable extends Component
             ->reject(function ($column) use ($export) {
                 return $column->scope || $column->type === 'label' || ($export && $column->preventExport);
             })->map(function ($column) {
+                if ($column->raw) {
+                    return $column;
+                }
+
                 if (Str::startsWith($column->name, 'callback_')) {
                     $column->select = $this->resolveAdditionalSelects($column);
 
