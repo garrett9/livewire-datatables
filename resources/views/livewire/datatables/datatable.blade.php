@@ -63,10 +63,8 @@
 						icon="fas fa-chevron-left"
 						wire:click="gotoPage({{ $this->results->currentPage() - 1 }})"
 						:disabled="$this->results->onFirstPage()"
-						loading=""
 					/>
 					<x-assetsheld::ui.icon-button
-						loading=""
 						class="border-none shadow-none disabled:!bg-white disabled:text-gray-400"
 						icon="fas fa-chevron-right"
 						wire:click="gotoPage({{ $this->results->currentPage() + 1 }})"
