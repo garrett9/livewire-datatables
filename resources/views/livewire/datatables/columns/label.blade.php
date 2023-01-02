@@ -2,11 +2,13 @@
 	@if (!empty($pre))
 		<div>{{ $pre }}</div>
 	@endif
-	<x-assetsheld::ui.label
-		class="!text-xs"
-		:status="$status"
-	>
-		{{ $slot }}
+	@if (!empty($slot))
+		<x-assetsheld::ui.label
+			class="!text-xs"
+			:status="$status"
+		>
+			{{ $slot }}
+	@endif
 	</x-assetsheld::ui.label>
 	@if (!empty($post))
 		<div>{{ $post }}</div>
