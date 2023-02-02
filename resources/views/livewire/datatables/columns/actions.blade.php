@@ -14,7 +14,8 @@
 		@if ($deleteModal)
 			<x-assetsheld::dropdown.action
 				icon="fas fa-trash"
-				wire:click="$emit('openModal', '{{ $deleteModal }}', {{ json_encode([$value]) }})"
+				x-data=""
+				x-on:click="document.dispatchEvent(new CustomEvent('openModal', { detail: { modal: '{{ $deleteModal }}', data: {{ json_encode([$value]) }} }})) "
 			>
 				Delete
 			</x-assetsheld::dropdown.action>
