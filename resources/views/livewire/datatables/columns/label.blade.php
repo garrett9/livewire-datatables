@@ -1,4 +1,4 @@
-<div class="flex flex-row items-center space-x-3">
+<div class="flex flex-row items-center justify-center space-x-3">
 	@if (!empty($pre))
 		<div>{{ $pre }}</div>
 	@endif
