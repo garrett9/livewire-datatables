@@ -198,8 +198,7 @@ class Column
     {
         return static::callback($name, function ($value) use ($mutator) {
             return view('datatables::columns.image', [
-                'src'   => $mutator ? $mutator($value) : $value,
-                'class' => 'm-auto h-20 rounded object-cover',
+                'src' => $mutator ? $mutator($value) : $value,
             ]);
         })->unsortable()->excludeFromExport();
     }
