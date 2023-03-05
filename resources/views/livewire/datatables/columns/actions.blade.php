@@ -1,4 +1,4 @@
-<x-assetsheld::dropdown.container
+<x-assetsheld::dropdown.container-for-body
 	icon="fas fa-ellipsis-v"
 	class="border-none text-left shadow-none"
 >
@@ -21,4 +21,4 @@
 			</x-assetsheld::dropdown.action>
 		@endif
 	</x-slot>
-</x-assetsheld::dropdown.container>
+</x-assetsheld::dropdown.container-for-body>
