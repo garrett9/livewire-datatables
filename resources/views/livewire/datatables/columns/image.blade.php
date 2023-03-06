@@ -1,5 +1,5 @@
 <img
-	class="m-auto max-w-[20rem] rounded object-cover"
+	class="m-auto max-w-[10rem] rounded object-cover"
 	src="{{ $src }}"
 	alt="{{ $alt ?? '' }}"
 />
